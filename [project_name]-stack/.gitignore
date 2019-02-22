@@ -1,0 +1,4 @@
+secrets/
+*.crt
+*.csr
+*.key
