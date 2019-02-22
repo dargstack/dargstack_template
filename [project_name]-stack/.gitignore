@@ -1,4 +1,5 @@
-secrets/
+**/secrets/**
 *.crt
 *.csr
 *.key
+!*.template
