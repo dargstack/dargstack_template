@@ -1,5 +1,7 @@
 **/secrets/**
 *.crt
 *.csr
+*.env
 *.key
 !*.template
+production/stack.yml
