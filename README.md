@@ -52,13 +52,13 @@ rc-manager=unmanaged
 ```
 
 #### Docker Secrets
-Confidential data, like usernames and passwords, need to be accessible as [Docker secrets](https://docs.docker.com/engine/swarm/secrets/) to keep them out of the source code. These files, which contain the passwords' values, need to exist inside the `project-name_stack/development/secrets/` directory.
+Confidential data, like usernames and passwords, need to be accessible as [Docker secrets](https://docs.docker.com/engine/swarm/secrets/) to keep them out of the source code. These files, which contain the passwords' values, need to exist inside the `[project_name]-stack/development/secrets/` directory.
 
 #### Stack
 Simply [deploy the development stack](https://docs.docker.com/engine/reference/commandline/stack_deploy/) using the following command:
 
 ```bash
-docker stack deploy -c [project-name]-stack/development/stack.yml [project-name]
+docker stack deploy -c [project_name]-stack/development/stack.yml [project_name]
 ```
 
 <a name="stack-production"></a>
@@ -75,7 +75,7 @@ Don't use password files for production. Use the `docker secret create` command 
 When done, shred those files!
 
 #### Environment Variables
-You may need to clone a `project-name_stack/production/.env.template` file to a `.env` file next to it and specify the included environment variables.
+You may need to clone a `[project_name]-stack/production/.env.template` file to a `.env` file next to it and specify the included environment variables.
 
 `.env` contains environment variables for the stack file itself. The `deploy.sh` script, mentioned in the **Production/Stack** section, executes a command similar to this for deployment where `-E` indicates preserved environment variables for `sudo` use:
 
@@ -86,4 +86,4 @@ export $(cat .env | xargs) && sudo -E docker stack deploy -c stack.yml [project_
 `traefik.env` sets provider credentials for DNS authentication as environment variables for the traefik service.
 
 #### Stack
-Utilize [new-production-stack.sh](https://gist.github.com/Dargmuesli/517d2032c1b148cf7a85e0cdccaa1818) to derive `project-name_stack/production/stack.yml` from `project-name_stack/development/stack.yml` and [deploy.sh](https://gist.github.com/Dargmuesli/6f303f4550b8ff241897dbda30a49cb3) for automatic deployment.
+Utilize [new-production-stack.sh](https://gist.github.com/Dargmuesli/517d2032c1b148cf7a85e0cdccaa1818) to derive `[project_name]-stack/production/stack.yml` from `[project_name]-stack/development/stack.yml` and [deploy.sh](https://gist.github.com/Dargmuesli/6f303f4550b8ff241897dbda30a49cb3) for automatic deployment.
