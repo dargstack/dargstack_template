@@ -169,10 +169,10 @@ function deploy() {
 		then
 			exit 1
 		else
-			echo -e "Exporting environment variables..."
+			if [ -f "./production/stack.env" ]; then
+				echo -e "Exporting environment variables..."
 
-			if [ -f "./production/.env" ]; then
-				export $(grep -v '^#' "./production/.env" | xargs)
+				export $(grep -v '^#' "./production/stack.env" | xargs)
 			fi
 
 			# Ensure Docker is part of a swarm
