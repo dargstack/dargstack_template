@@ -1,1 +1,347 @@
-/home/jonas/bin/dargstack
+#!/bin/bash
+
+#
+# Helper script for the DargStack template.
+#
+
+# Exit on errors, use last pipe error code, do not overwrite files, ensure
+# variables exist
+set -o errexit -o pipefail -o noclobber -o nounset
+
+# Set color codes for use with echo
+LIGHT_BLUE='\e[94m'
+LIGHT_GREEN='\e[92m'
+LIGHT_RED='\e[91m'
+LIGHT_YELLOW='\e[93m'
+NC='\e[0m'
+
+# Get this script's directory
+THIS=$(dirname $(readlink -f "$0"))
+
+# convert the project name to a valid DNS name
+DIRECTORY_NAME=$(echo "${PWD##*/}" | sed -e "s/[^A-Za-z]/-/g")
+PROJECT_OWNER="${PWD%/*}"
+PROJECT_OWNER="${PROJECT_OWNER##*/}"
+PROJECT_NAME="${DIRECTORY_NAME%"-stack"}"
+
+function usage {
+	echo -e "usage: ${0##*/} ${LIGHT_YELLOW}<module>${NC}" \
+		"${LIGHT_YELLOW}<options>${NC}"
+	echo -e ""
+	echo -e "${LIGHT_YELLOW}modules${NC}"
+	echo -e "    build                     Builds the main project with the" \
+		"${LIGHT_BLUE}test${NC} tag. Only for development."
+	echo -e "    deploy                    Deploys a Docker project either" \
+		"from a full local development clone of the project or, with the" \
+		"${LIGHT_BLUE}--production${NC} parameter provided, by doing a" \
+		"sparse Git checkout containing only the production configuration." \
+		"In the latter case ${LIGHT_BLUE}prepare${NC} is executed first and" \
+		"the existence of required environment variables is checked before" \
+		"deployment starts."
+	echo -e "    prepare                   Derives a" \
+		"${LIGHT_BLUE}./production/stack.yml${NC} from" \
+		"${LIGHT_BLUE}./development/stack.yml${NC}."
+	echo -e "    rm                        Removes the stack."
+	echo -e ""
+	echo -e "${LIGHT_YELLOW}options${NC}"
+	echo -e "    -h, --help                Display this help. Usable with" \
+		"modules: all."
+	echo -e "    -p, --production <tag>    Execute in production mode." \
+		"Version must equal a tag name or ${LIGHT_BLUE}latest${NC}. Usable" \
+		"with modules: ${LIGHT_BLUE}deploy${NC}."
+	echo -e "    -u, --url <url>           The URL to clone from. May" \
+		"include the substrings ${LIGHT_BLUE}<owner>${NC} and" \
+		"${LIGHT_BLUE}<name>${NC} that are replaced by their corresponding" \
+		"value that is inferred from the DargStack directory structure." \
+		"Usable with modules: ${LIGHT_BLUE}deploy${NC}."
+	exit 1
+}
+
+function docker_sudo() {
+	if id -nG | grep -qw "docker"
+	then
+		docker "$@"
+	else
+		sudo -E docker "$@"
+	fi
+}
+
+function deploy() {
+	PROJECT_OWNER="$1"
+	PROJECT_NAME="$2"
+	VERSION="$3"
+	URL="$4"
+	MODE="$5"
+
+	if [ "$MODE" == "production" ]
+	then
+		if [ ! -d "./.git" ]
+		then
+			echo -e "Initializing a sparse Git checkout..."
+
+			git init
+			git remote add origin "$URL"
+			git config advice.detachedHead false
+			git config core.sparsecheckout true
+			echo "development/stack.yml" >> "./.git/info/sparse-checkout"
+			echo "production/*" >> "./.git/info/sparse-checkout"
+		fi
+
+		echo -e "Updating checkout..."
+
+		git fetch --depth 1
+
+		latest=false
+
+		if [ "$VERSION" == "latest" ]
+		then
+			latest=true
+			VERSION=$(git rev-list --tags --max-count=1)
+		fi
+
+		git_describe=$(git describe --tags $VERSION 2>/dev/null) || true
+
+		if [ "$git_describe" == "" ]
+		then
+			echo -e "${LIGHT_RED}Git describe failed!${NC}"
+
+			if [ "$latest" == "true" ]
+			then
+				echo -e "${LIGHT_YELLOW}Make sure the stack repository is" \
+					"tagged.${NC}"
+			else
+				echo -e "${LIGHT_YELLOW}Make sure the stack repository has the" \
+					"${LIGHT_BLUE}$VERSION${LIGHT_YELLOW} tag.${NC}"
+			fi
+
+			exit 1
+		fi
+
+		# Update the sparse checkout (overwrite files that changed on git,
+		# keeping files that are not part of the repository)
+		git fetch --depth 1 origin tag "$git_describe"
+		git checkout "$git_describe"
+
+		echo -e "Searching for unset environment variables ..."
+
+		# Compare .env.template and .env files to find variables that are not
+		# yet set.
+		awk=""
+		error=false
+
+		while read -r -d $'\0' x
+		do
+			# Create environment variable file from template
+			if [ ! -s "${x%.template}" ]
+			then
+				cp "$x" "${x%.template}"
+			fi
+
+			# Check if all environment variables are set
+			awk=$(awk '
+			{
+				if (NR == FNR) {
+					key = value = $0
+					sub("=.*$", "", key)
+					sub("^.*=", "", value)
+					lines[key] = value
+				}
+
+				if ((NR != FNR) && ($0 !~ /(^#.*$|^$)/)) {
+					sub("=", "")
+
+					if (!($0 in lines) || (lines[$0] == "")) {
+						print
+					}
+				}
+			}' "${x%.template}" "$x")
+
+			if [ "$awk" != "" ]
+			then
+				error=true
+				echo -e "\n${LIGHT_RED}The following environment variables" \
+					"are not set in ${LIGHT_BLUE}${x%.template}${LIGHT_RED}:" \
+					"\n${LIGHT_YELLOW}$awk${NC}"
+			fi
+		done < <(find . -type f -name '*.template' -print0)
+
+		if [ "$error" = true ]
+		then
+			exit 1
+		else
+			echo -e "Exporting environment variables..."
+
+			if [ -f "./production/.env" ]; then
+				export $(grep -v '^#' "./production/.env" | xargs)
+			fi
+
+			# Ensure Docker is part of a swarm
+			if [ "$(docker_sudo info --format '{{.Swarm.LocalNodeState}}')" = \
+				"inactive" ]
+			then
+				echo -e "Creating swarm..."
+				docker_sudo swarm init
+			fi
+		fi
+
+		prepare
+	fi
+
+	echo -e "Deploying ${LIGHT_BLUE}$PROJECT_NAME-stack${NC} for" \
+		"${LIGHT_BLUE}$MODE${NC}..."
+
+	docker_sudo stack deploy -c "$MODE/stack.yml" "$PROJECT_NAME"
+}
+
+function prepare() {
+	IN="$PWD/development/stack.yml"
+	OUT="$PWD/production/stack.yml"
+	seds=()
+
+	echo -e "Deriving ${LIGHT_BLUE}./production/stack.yml${NC} from" \
+		"${LIGHT_BLUE}./development/stack.yml${NC}..."
+
+	cp "$IN" "$OUT"
+
+	if [ -f "./production/production.sed" ]
+	then
+		echo -e "Applying seds from" \
+			"${LIGHT_BLUE}./production/production.sed${NC}..."
+
+		readarray -t seds < "./production/production.sed"
+
+		for sed_string in "${seds[@]}"
+		do
+			sed -i "$sed_string" "$OUT"
+		done
+	fi
+
+	if [ -f "./production/production.yml" ]
+	then
+		echo -e "Merging ${LIGHT_BLUE}./production/production.yml${NC}..."
+		echo "$(docker_sudo run --rm -v "$OUT:/manifests/stack.yml" -v \
+		"$PWD/production/production.yml:/manifests/production.yml" \
+		gfranks/spruce spruce merge /manifests/stack.yml \
+		/manifests/production.yml)" >| "$OUT"
+	fi
+}
+
+MODE="development"
+VERSION=""
+URL="https://github.com/<owner>/<name>.git"
+
+# Check if getopt is available
+! getopt --test > /dev/null
+if [[ ${PIPESTATUS[0]} -ne 4 ]]
+then
+	echo -e "${LIGHT_RED}Cannot parse parameters!${NC}"
+	exit 1
+fi
+
+# Parse command line parameters
+OPTIONS=hp:u:
+LONGOPTS=help,production:,url:
+
+! PARSED=$(getopt --options=$OPTIONS --longoptions=$LONGOPTS \
+	--name "$0" -- "$@")
+if [[ ${PIPESTATUS[0]} -ne 0 ]]; then
+	exit 2
+fi
+
+eval set -- "$PARSED"
+
+while true
+do
+	case "$1" in
+		-h|--help)
+			echo -e "DargStack template helper script."
+			echo -e ""
+			usage
+			;;
+		-p|--production)
+			MODE="production"
+			VERSION="$2"
+			shift 2
+			;;
+		-u|--url)
+			URL="$2"
+			shift 2
+			;;
+		--)
+			shift
+			break
+			;;
+		*)
+			echo -e "${LIGHT_RED}Programming error!${NC}"
+			exit 2
+			;;
+	esac
+done
+
+if [[ $# -gt 2 ]]
+then
+	echo -e "${LIGHT_YELLOW}ignoring everything after $2${NC}!"
+fi
+
+if [[ ! "$DIRECTORY_NAME" =~ ^.+-stack$ ]]
+then
+	echo -e "${LIGHT_RED}Cannot parse project name from directory name" \
+		"${LIGHT_BLUE}$DIRECTORY_NAME${LIGHT_RED}!${NC}"
+	echo -e "${LIGHT_YELLOW}Please execute this script from a DargStack" \
+		"directory or enable production mode.${NC}"
+	exit 1
+fi
+
+if [ $# -lt 1 ]
+then
+	echo -e "${LIGHT_RED}No module parameter provided!${NC}"
+	usage
+	exit 1
+elif [[ "$1" != "build" && "$1" != "deploy" && "$1" != "prepare" \
+	&& "$1" != "rm" ]]
+then
+	echo -e "${LIGHT_RED}Parameter '$1' equals neither" \
+	"${LIGHT_BLUE}build${LIGHT_RED} nor ${LIGHT_BLUE}deploy${LIGHT_RED} nor" \
+	"${LIGHT_BLUE}prepare${LIGHT_RED} nor ${LIGHT_BLUE}rm${LIGHT_RED}!${NC}"
+	exit 1
+fi
+
+if ([ "$1" == "build" ] || "$1" == "deploy" ] || [ "$1" == "prepare" ])\
+	&& [ "$MODE" == "development" ] && [ ! -d "../$PROJECT_NAME" ]
+then
+	echo -e "${LIGHT_RED}Running in ${LIGHT_BLUE}development${LIGHT_RED}" \
+		"mode, but directory ${LIGHT_BLUE}../$PROJECT_NAME${LIGHT_RED} does" \
+		"not exist!${NC}"
+	exit 1
+fi
+
+URL=${URL/"<owner>"/$PROJECT_OWNER}
+URL=${URL/"<name>"/$PROJECT_NAME-stack}
+
+echo -e "DargStack project ${LIGHT_BLUE}$URL${NC} for ${LIGHT_BLUE}$MODE${NC}.\n"
+
+case "$1" in
+"build")
+	projects=("$PROJECT_NAME")
+	projects+=($(cd .. && ls -d $PROJECT_NAME-*/ | grep -v $PROJECT_NAME-stack/))
+
+	for project in "${projects[@]:1}"
+	do
+		project=${project::-1}
+		echo -e "Building ${LIGHT_BLUE}$PROJECT_OWNER/$project:dev${NC}..."
+		docker_sudo build -t "$PROJECT_OWNER/$project:dev" "../$project/"
+	done
+	;;
+"deploy")
+	deploy "$PROJECT_OWNER" "$PROJECT_NAME" "$VERSION" "$URL" "$MODE"
+	;;
+"prepare")
+	prepare
+	;;
+"rm")
+	echo -e "Removing stack ${LIGHT_BLUE}$PROJECT_NAME${NC}..."
+	docker_sudo stack rm "$PROJECT_NAME"
+	;;
+esac
+
+echo -e "\n${LIGHT_GREEN}Done${NC}"
