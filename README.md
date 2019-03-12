@@ -58,6 +58,8 @@ Confidential data, like usernames and passwords, need to be accessible as [Docke
 Simply [deploy the development stack](https://docs.docker.com/engine/reference/commandline/stack_deploy/) using the following command:
 
 ```bash
+dargstack deploy
+# or
 docker stack deploy -c [project-name]_stack/development/stack.yml [project-name]
 ```
 
@@ -75,15 +77,17 @@ Don't use password files for production. Use the `docker secret create` command 
 When done, shred those files!
 
 #### Environment Variables
-You may need to clone a `[project-name]_stack/production/.env.template` file to a `.env` file next to it and specify the included environment variables.
+You may need to clone a `[project-name]_stack/production/stack.env.template` file to a sibling `stack.env` file and specify the included environment variables.
 
-`.env` contains environment variables for the stack file itself. The `deploy.sh` script, mentioned in the **Production/Stack** section, executes a command similar to this for deployment where `-E` indicates preserved environment variables for `sudo` use:
+`stack.env` contains environment variables for the stack file itself. The `deploy.sh` script, mentioned in the **Production/Stack** section, executes a command similar to this for deployment where `-E` indicates preserved environment variables for `sudo` use:
 
 ```Bash
 export $(cat .env | xargs) && sudo -E docker stack deploy -c stack.yml [project-name]
 ```
 
-`traefik.env` sets provider credentials for DNS authentication as environment variables for the traefik service.
+<!-- requires further explanation
+
+`traefik.env` sets provider credentials for DNS authentication as environment variables for the traefik service.-->
 
 #### Stack
-Utilize [new-production-stack.sh](https://gist.github.com/Dargmuesli/517d2032c1b148cf7a85e0cdccaa1818) to derive `[project-name]_stack/production/stack.yml` from `[project-name]_stack/development/stack.yml` and [deploy.sh](https://gist.github.com/Dargmuesli/6f303f4550b8ff241897dbda30a49cb3) for automatic deployment.
+Utilize the helper script [dargstack](https://github.com/Dargmuesli/dargstack-template/blob/master/dargstack) for deployment. It derives `[project-name]_stack/production/stack.yml` from `[project-name]_stack/development/stack.yml` and deploys the latter automatically.
