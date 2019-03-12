@@ -185,6 +185,8 @@ function deploy() {
 		fi
 
 		prepare
+	else
+		export "STACK_DOMAIN=$PROJECT_NAME.test"
 	fi
 
 	echo -e "Deploying ${LIGHT_BLUE}$PROJECT_NAME-stack${NC} for" \
