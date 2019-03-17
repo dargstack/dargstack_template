@@ -4,4 +4,5 @@
 *.env
 *.key
 !*.template
+production/backup/
 production/stack.yml
