@@ -19,7 +19,7 @@ NC='\e[0m'
 THIS=$(dirname $(readlink -f "$0"))
 
 # convert the project name to a valid DNS name
-DIRECTORY_NAME=$(echo "${PWD##*/}" | sed -e "s/[^A-Za-z]/-/g")
+DIRECTORY_NAME=$(echo "${PWD##*/}" | sed -e "s/[^A-Za-z_]/-/g")
 PROJECT_OWNER="${PWD%/*}"
 PROJECT_OWNER="${PROJECT_OWNER##*/}"
 PROJECT_NAME="${DIRECTORY_NAME%"_stack"}"
