@@ -22,7 +22,7 @@ THIS=$(dirname $(readlink -f "$0"))
 DIRECTORY_NAME=$(echo "${PWD##*/}" | sed -e "s/[^A-Za-z]/-/g")
 PROJECT_OWNER="${PWD%/*}"
 PROJECT_OWNER="${PROJECT_OWNER##*/}"
-PROJECT_NAME="${DIRECTORY_NAME%"-stack"}"
+PROJECT_NAME="${DIRECTORY_NAME%"_stack"}"
 
 function usage {
 	echo -e "usage: ${0##*/} ${LIGHT_YELLOW}<module>${NC}" \
@@ -290,7 +290,7 @@ then
 	echo -e "${LIGHT_YELLOW}ignoring everything after $2${NC}!"
 fi
 
-if [[ ! "$DIRECTORY_NAME" =~ ^.+-stack$ ]]
+if [[ ! "$DIRECTORY_NAME" =~ ^.+_stack$ ]]
 then
 	echo -e "${LIGHT_RED}Cannot parse project name from directory name" \
 		"${LIGHT_BLUE}$DIRECTORY_NAME${LIGHT_RED}!${NC}"
@@ -323,14 +323,14 @@ then
 fi
 
 URL=${URL/"<owner>"/$PROJECT_OWNER}
-URL=${URL/"<name>"/$PROJECT_NAME-stack}
+URL=${URL/"<name>"/${PROJECT_NAME}_stack}
 
 echo -e "DargStack project ${LIGHT_BLUE}$URL${NC} for ${LIGHT_BLUE}$MODE${NC}.\n"
 
 case "$1" in
 "build")
 	projects=("$PROJECT_NAME")
-	projects+=($(cd .. && ls -d $PROJECT_NAME-*/ | grep -v $PROJECT_NAME-stack/))
+	projects+=($(cd .. && ls -d ${PROJECT_NAME}_*/ | grep -v ${PROJECT_NAME}_stack/))
 
 	for project in "${projects[@]:1}"
 	do
