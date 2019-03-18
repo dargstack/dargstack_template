@@ -304,8 +304,8 @@ then
 	echo -e "${LIGHT_RED}No module parameter provided!${NC}"
 	usage
 	exit 1
-elif [[ "$1" != "build" && "$1" != "deploy" && "$1" != "prepare" \
-	&& "$1" != "rm" ]]
+elif ([ "$1" != "build" ] && [ "$1" != "deploy" ] && [ "$1" != "prepare" ] \
+	&& [ "$1" != "rm" ])
 then
 	echo -e "${LIGHT_RED}Parameter '$1' equals neither" \
 	"${LIGHT_BLUE}build${LIGHT_RED} nor ${LIGHT_BLUE}deploy${LIGHT_RED} nor" \
