@@ -24,6 +24,10 @@ PROJECT_OWNER="${PWD%/*}"
 PROJECT_OWNER="${PROJECT_OWNER##*/}"
 PROJECT_NAME="${DIRECTORY_NAME%"_stack"}"
 
+MODE="development"
+VERSION=""
+URL="https://github.com/<owner>/<name>.git"
+
 function usage {
 	echo -e "usage: ${0##*/} ${LIGHT_YELLOW}<module>${NC}" \
 		"${LIGHT_YELLOW}<options>${NC}"
@@ -189,7 +193,7 @@ function deploy() {
 		export "STACK_DOMAIN=$PROJECT_NAME.test"
 	fi
 
-	echo -e "Deploying ${LIGHT_BLUE}$PROJECT_NAME-stack${NC} for" \
+	echo -e "Deploying ${LIGHT_BLUE}$PROJECT_NAME${NC} stack for" \
 		"${LIGHT_BLUE}$MODE${NC}..."
 
 	docker_sudo stack deploy -c "$MODE/stack.yml" "$PROJECT_NAME"
@@ -232,10 +236,6 @@ function prepare() {
 		/manifests/production.yml)" >| "$OUT"
 	fi
 }
-
-MODE="development"
-VERSION=""
-URL="https://github.com/<owner>/<name>.git"
 
 # Check if getopt is available
 ! getopt --test > /dev/null
