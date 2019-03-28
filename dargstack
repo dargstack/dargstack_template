@@ -46,6 +46,7 @@ function usage {
 		"${LIGHT_BLUE}./production/stack.yml${NC} from" \
 		"${LIGHT_BLUE}./development/stack.yml${NC}."
 	echo -e "    rm                        Removes the stack."
+	echo -e "    self-update               Updates the helper script."
 	echo -e ""
 	echo -e "${LIGHT_YELLOW}options${NC}"
 	echo -e "    -h, --help                Display this help. Usable with" \
@@ -304,11 +305,13 @@ then
 	echo -e "${LIGHT_RED}No module parameter provided!${NC}"
 	usage
 	exit 1
-elif [[ "$1" != "build" && "$1" != "deploy" && "$1" != "prepare" && "$1" != "rm" ]]
+elif [[ "$1" != "build" && "$1" != "deploy" && "$1" != "prepare" && \
+	"$1" != "rm" && "$1" != "self-update" ]]
 then
 	echo -e "${LIGHT_RED}Parameter '$1' equals neither" \
 	"${LIGHT_BLUE}build${LIGHT_RED} nor ${LIGHT_BLUE}deploy${LIGHT_RED} nor" \
-	"${LIGHT_BLUE}prepare${LIGHT_RED} nor ${LIGHT_BLUE}rm${LIGHT_RED}!${NC}"
+	"${LIGHT_BLUE}prepare${LIGHT_RED} nor ${LIGHT_BLUE}rm${LIGHT_RED}!" \
+	"nor ${LIGHT_BLUE}self-update${LIGHT_RED}!${NC}"
 	exit 1
 fi
 
@@ -347,6 +350,11 @@ case "$1" in
 "rm")
 	echo -e "Removing stack ${LIGHT_BLUE}$PROJECT_NAME${NC}..."
 	docker_sudo stack rm "$PROJECT_NAME"
+	;;
+"self-update")
+	wget -N "https://raw.githubusercontent.com/dargmuesli/dargstack-template/master/dargstack" -O "$THIS/dargstack"
+	chmod +x "$THIS/dargstack"
+	exec "$0" "$@"
 	;;
 esac
 
