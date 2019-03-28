@@ -304,8 +304,7 @@ then
 	echo -e "${LIGHT_RED}No module parameter provided!${NC}"
 	usage
 	exit 1
-elif ([ "$1" != "build" ] && [ "$1" != "deploy" ] && [ "$1" != "prepare" ] \
-	&& [ "$1" != "rm" ])
+elif [[ "$1" != "build" && "$1" != "deploy" && "$1" != "prepare" && "$1" != "rm" ]]
 then
 	echo -e "${LIGHT_RED}Parameter '$1' equals neither" \
 	"${LIGHT_BLUE}build${LIGHT_RED} nor ${LIGHT_BLUE}deploy${LIGHT_RED} nor" \
@@ -313,8 +312,8 @@ then
 	exit 1
 fi
 
-if ([ "$1" == "build" ] || "$1" == "deploy" ] || [ "$1" == "prepare" ])\
-	&& [ "$MODE" == "development" ] && [ ! -d "../$PROJECT_NAME" ]
+if [[ ("$1" == "build" || "$1" == "deploy" || "$1" == "prepare") \
+	&& "$MODE" == "development" && (! -d "../$PROJECT_NAME") ]]
 then
 	echo -e "${LIGHT_RED}Running in ${LIGHT_BLUE}development${LIGHT_RED}" \
 		"mode, but directory ${LIGHT_BLUE}../$PROJECT_NAME${LIGHT_RED} does" \
@@ -329,12 +328,12 @@ echo -e "DargStack project ${LIGHT_BLUE}$URL${NC} for ${LIGHT_BLUE}$MODE${NC}.\n
 
 case "$1" in
 "build")
-	projects=("$PROJECT_NAME")
-	projects+=($(cd .. && ls -d ${PROJECT_NAME}_*/ | grep -v ${PROJECT_NAME}_stack/))
+	projects=("$PROJECT_NAME/")
+	projects+=($(cd .. && ls -d ${PROJECT_NAME}_*/ | grep -v ${PROJECT_NAME}_stack/ || true))
 
 	for project in "${projects[@]:1}"
 	do
-		project=${project::-1}
+		project=${projects[$i]::-1}
 		echo -e "Building ${LIGHT_BLUE}$PROJECT_OWNER/$project:dev${NC}..."
 		docker_sudo build -t "$PROJECT_OWNER/$project:dev" "../$project/"
 	done
