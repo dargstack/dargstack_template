@@ -336,7 +336,7 @@ case "$1" in
 
 	for project in "${projects[@]:1}"
 	do
-		project=${projects[$i]::-1}
+		project=${project::-1}
 		echo -e "Building ${LIGHT_BLUE}$PROJECT_OWNER/$project:dev${NC}..."
 		docker_sudo build -t "$PROJECT_OWNER/$project:dev" "../$project/"
 	done
