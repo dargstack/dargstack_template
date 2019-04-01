@@ -354,7 +354,6 @@ case "$1" in
 "self-update")
 	wget -N "https://raw.githubusercontent.com/dargmuesli/dargstack-template/master/dargstack" -O "$THIS/dargstack"
 	chmod +x "$THIS/dargstack"
-	exec "$0" "$@"
 	;;
 esac
 
