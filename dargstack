@@ -334,7 +334,7 @@ case "$1" in
 	projects=("$PROJECT_NAME/")
 	projects+=($(cd .. && ls -d ${PROJECT_NAME}_*/ | grep -v ${PROJECT_NAME}_stack/ || true))
 
-	for project in "${projects[@]:1}"
+	for project in "${projects[@]}"
 	do
 		project=${project::-1}
 		echo -e "Building ${LIGHT_BLUE}$PROJECT_OWNER/$project:dev${NC}..."
