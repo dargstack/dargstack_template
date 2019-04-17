@@ -291,7 +291,7 @@ then
 	echo -e "${LIGHT_YELLOW}ignoring everything after $2${NC}!"
 fi
 
-if [[ ! "$DIRECTORY_NAME" =~ ^.+_stack$ ]]
+if [[ ! "$DIRECTORY_NAME" =~ ^.+_stack$ && "$1" != "self-update" ]]
 then
 	echo -e "${LIGHT_RED}Cannot parse project name from directory name" \
 		"${LIGHT_BLUE}$DIRECTORY_NAME${LIGHT_RED}!${NC}"
