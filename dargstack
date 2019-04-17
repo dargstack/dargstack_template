@@ -95,6 +95,12 @@ function deploy() {
 		echo -e "Updating checkout..."
 
 		git fetch --depth 1
+		
+		if [ "$(git tag -l)" == "" ]
+		then
+			echo -e "${LIGHT_RED}The stack repository has no tags!${NC}"
+			exit 1
+		fi
 
 		latest=false
 
