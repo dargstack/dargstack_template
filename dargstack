@@ -352,7 +352,7 @@ case "$1" in
 	docker_sudo stack rm "$PROJECT_NAME"
 	;;
 "self-update")
-	wget -N "https://raw.githubusercontent.com/dargmuesli/dargstack-template/master/dargstack" -O "$THIS/dargstack"
+	wget "https://raw.githubusercontent.com/dargmuesli/dargstack-template/master/dargstack" -O "$THIS/dargstack"
 	chmod +x "$THIS/dargstack"
 	;;
 esac
