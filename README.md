@@ -7,16 +7,10 @@ A template for Docker stack project layouts.
     1. **[Development](#development)**
     1. **[Production](#production)**
 
-<a name="project"></a>
-
 ## Project
 The main project folder should at least contain a `Dockerfile`.
 
-<a name="stack"></a>
-
 ## Stack
-
-<a name="stack-development"></a>
 
 ### Development
 
@@ -62,8 +56,6 @@ dargstack deploy
 # or
 docker stack deploy -c [project-name]_stack/development/stack.yml [project-name]
 ```
-
-<a name="stack-production"></a>
 
 ### Production
 
