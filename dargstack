@@ -95,7 +95,7 @@ function deploy() {
 		echo -e "Updating checkout..."
 
 		git fetch --depth 1
-		
+
 		if [ "$(git tag -l)" == "" ]
 		then
 			echo -e "${LIGHT_RED}The stack repository has no tags!${NC}"
@@ -321,7 +321,7 @@ then
 	exit 1
 fi
 
-if [[ ("$1" == "build" || "$1" == "deploy" || "$1" == "prepare") \
+if [[ ("$1" == "build" || "$1" == "deploy") \
 	&& "$MODE" == "development" && (! -d "../$PROJECT_NAME") ]]
 then
 	echo -e "${LIGHT_RED}Running in ${LIGHT_BLUE}development${LIGHT_RED}" \
