@@ -33,8 +33,9 @@ function usage {
 		"${LIGHT_YELLOW}<options>${NC}"
 	echo -e ""
 	echo -e "${LIGHT_YELLOW}modules${NC}"
-	echo -e "    build                     Builds the main project with the" \
-		"${LIGHT_BLUE}test${NC} tag. Only for development."
+	echo -e "    build [sibling]           Builds the main project or the" \
+		"specified sibling, tagged as ${LIGHT_BLUE}dev${NC}. Only for" \
+		"development."
 	echo -e "    deploy                    Deploys a Docker project either" \
 		"from a full local development clone of the project or, with the" \
 		"${LIGHT_BLUE}--production${NC} parameter provided, by doing a" \
@@ -337,15 +338,15 @@ echo -e "DargStack project ${LIGHT_BLUE}$URL${NC} for ${LIGHT_BLUE}$MODE${NC}.\n
 
 case "$1" in
 "build")
-	projects=("$PROJECT_NAME/")
-	projects+=($(cd .. && ls -d ${PROJECT_NAME}_*/ | grep -v ${PROJECT_NAME}_stack/ || true))
+	project="$PROJECT_NAME"
+	
+	if [ "${2+defined}" == "defined" ]
+	then
+		project+="_$2"
+	fi
 
-	for project in "${projects[@]}"
-	do
-		project=${project::-1}
-		echo -e "Building ${LIGHT_BLUE}$PROJECT_OWNER/$project:dev${NC}..."
-		docker_sudo build -t "$PROJECT_OWNER/$project:dev" "../$project/"
-	done
+	echo -e "Building ${LIGHT_BLUE}$PROJECT_OWNER/$project:dev${NC}..."
+	docker_sudo build -t "$PROJECT_OWNER/$project:dev" "../$project/"
 	;;
 "deploy")
 	deploy "$PROJECT_OWNER" "$PROJECT_NAME" "$VERSION" "$URL" "$MODE"
