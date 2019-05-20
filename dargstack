@@ -204,7 +204,7 @@ function deploy() {
 	echo -e "Deploying ${LIGHT_BLUE}$PROJECT_NAME${NC} stack for" \
 		"${LIGHT_BLUE}$MODE${NC}..."
 
-	docker_sudo stack deploy -c "$MODE/stack.yml" "$PROJECT_NAME"
+	docker_sudo stack deploy -c "../${PROJECT_NAME}_stack/$MODE/stack.yml" "$PROJECT_NAME"
 }
 
 function prepare() {
@@ -296,15 +296,6 @@ done
 if [[ $# -gt 2 ]]
 then
 	echo -e "${LIGHT_YELLOW}ignoring everything after $2${NC}!"
-fi
-
-if [[ ! "$DIRECTORY_NAME" =~ ^.+_stack$ && "$1" != "self-update" ]]
-then
-	echo -e "${LIGHT_RED}Cannot parse project name from directory name" \
-		"${LIGHT_BLUE}$DIRECTORY_NAME${LIGHT_RED}!${NC}"
-	echo -e "${LIGHT_YELLOW}Please execute this script from a DargStack" \
-		"directory or enable production mode.${NC}"
-	exit 1
 fi
 
 if [ $# -lt 1 ]
