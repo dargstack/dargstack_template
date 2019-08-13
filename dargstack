@@ -149,31 +149,34 @@ function deploy() {
 				cp "$x" "${x%.template}"
 			fi
 
-			# Check if all environment variables are set
-			awk=$(awk '
-			{
-				if (NR == FNR) {
-					key = value = $0
-					sub("=.*$", "", key)
-					sub("^.*=", "", value)
-					lines[key] = value
-				}
-
-				if ((NR != FNR) && ($0 !~ /(^#.*$|^$)/)) {
-					sub("=", "")
-
-					if (!($0 in lines) || (lines[$0] == "")) {
-						print
-					}
-				}
-			}' "${x%.template}" "$x")
-
-			if [ "$awk" != "" ]
+			if [[ "$x" =~ "*.env.template$" ]]
 			then
-				error=true
-				echo -e "\n${LIGHT_RED}The following environment variables" \
-					"are not set in ${LIGHT_BLUE}${x%.template}${LIGHT_RED}:" \
-					"\n${LIGHT_YELLOW}$awk${NC}"
+				# Check if all environment variables are set
+				awk=$(awk '
+				{
+					if (NR == FNR) {
+						key = value = $0
+						sub("=.*$", "", key)
+						sub("^.*=", "", value)
+						lines[key] = value
+					}
+
+					if ((NR != FNR) && ($0 !~ /(^#.*$|^$)/)) {
+						sub("=", "")
+
+						if (!($0 in lines) || (lines[$0] == "")) {
+							print
+						}
+					}
+				}' "${x%.template}" "$x")
+
+				if [ "$awk" != "" ]
+				then
+					error=true
+					echo -e "\n${LIGHT_RED}The following environment variables" \
+						"are not set in ${LIGHT_BLUE}${x%.template}${LIGHT_RED}:" \
+						"\n${LIGHT_YELLOW}$awk${NC}"
+				fi
 			fi
 		done < <(find . -type f -name '*.template' -print0)
 
@@ -330,7 +333,7 @@ echo -e "DargStack project ${LIGHT_BLUE}$URL${NC} for ${LIGHT_BLUE}$MODE${NC}.\n
 case "$1" in
 "build")
 	project="$PROJECT_NAME"
-	
+
 	if [ "${2+defined}" == "defined" ]
 	then
 		project+="_$2"
