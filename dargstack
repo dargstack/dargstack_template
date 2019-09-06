@@ -134,7 +134,7 @@ function deploy() {
 		git fetch --depth 1 origin tag "$git_describe"
 		git checkout "$git_describe"
 
-		echo -e "Searching for unset environment variables ..."
+		echo -e "Searching for unset environment variables..."
 
 		# Compare .env.template and .env files to find variables that are not
 		# yet set.
