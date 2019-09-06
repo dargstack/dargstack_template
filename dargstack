@@ -68,7 +68,7 @@ function docker_sudo() {
 	then
 		docker "$@"
 	else
-		if [ "$SUDO_PASSWORD" = "" ]
+		if [ -z "${SUDO_PASSWORD+x}" ]
 		then
 			sudo -E docker "$@"
 		else
