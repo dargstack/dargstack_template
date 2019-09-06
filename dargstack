@@ -68,7 +68,7 @@ function docker_sudo() {
 	then
 		docker "$@"
 	else
-		if [ "$SUDO_PASSWORD" == "" ]
+		if [ "$SUDO_PASSWORD" = "" ]
 		then
 			sudo -E docker "$@"
 		else
@@ -84,7 +84,7 @@ function deploy() {
 	URL="$4"
 	MODE="$5"
 
-	if [ "$MODE" == "production" ]
+	if [ "$MODE" = "production" ]
 	then
 		if [ ! -d "./.git" ]
 		then
@@ -102,7 +102,7 @@ function deploy() {
 
 		git fetch --depth 1
 
-		if [ "$(git tag -l)" == "" ]
+		if [ "$(git tag -l)" = "" ]
 		then
 			echo -e "${LIGHT_RED}The stack repository has no tags!${NC}"
 			exit 1
@@ -110,7 +110,7 @@ function deploy() {
 
 		latest=false
 
-		if [ "$VERSION" == "latest" ]
+		if [ "$VERSION" = "latest" ]
 		then
 			latest=true
 			VERSION=$(git rev-list --tags --max-count=1)
@@ -118,11 +118,11 @@ function deploy() {
 
 		git_describe=$(git describe --tags $VERSION 2>/dev/null) || true
 
-		if [ "$git_describe" == "" ]
+		if [ "$git_describe" = "" ]
 		then
 			echo -e "${LIGHT_RED}Git describe failed!${NC}"
 
-			if [ "$latest" == "true" ]
+			if [ "$latest" = "true" ]
 			then
 				echo -e "${LIGHT_YELLOW}Make sure the stack repository is" \
 					"tagged.${NC}"
@@ -321,8 +321,8 @@ then
 	exit 1
 fi
 
-if [[ ("$1" == "build" || "$1" == "deploy") \
-	&& "$MODE" == "development" && (! -d "../$PROJECT_NAME") ]]
+if [[ ("$1" = "build" || "$1" = "deploy") \
+	&& "$MODE" = "development" && (! -d "../$PROJECT_NAME") ]]
 then
 	echo -e "${LIGHT_RED}Running in ${LIGHT_BLUE}development${LIGHT_RED}" \
 		"mode, but directory ${LIGHT_BLUE}../$PROJECT_NAME${LIGHT_RED} does" \
@@ -339,7 +339,7 @@ case "$1" in
 "build")
 	project="$PROJECT_NAME"
 
-	if [ "${2+defined}" == "defined" ]
+	if [ "${2+defined}" = "defined" ]
 	then
 		project+="_$2"
 	fi
