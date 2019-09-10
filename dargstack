@@ -26,7 +26,12 @@ PROJECT_NAME="${DIRECTORY_NAME%"_stack"}"
 
 MODE="development"
 VERSION=""
-URL="https://github.com/<owner>/<name>.git"
+URL="$(git remote get-url origin || true)"
+
+if [ "$URL" == "" ]
+then
+	URL="https://github.com/<owner>/<name>.git"
+fi
 
 function usage {
 	echo -e "usage: ${0##*/} ${LIGHT_YELLOW}<module>${NC}" \
