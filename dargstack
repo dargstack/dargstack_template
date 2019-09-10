@@ -73,11 +73,13 @@ function docker_sudo() {
 	then
 		docker "$@"
 	else
+		ENV_VARS_TO_PRESERVE="$(grep -v '^#' "./production/stack.env" | xargs | sed -r 's/=[^ ]+//g' | sed -r 's/ /,/g')"
+
 		if [ -z "${SUDO_PASSWORD+x}" ]
 		then
-			sudo -E docker "$@"
+			sudo --preserve-env="$ENV_VARS_TO_PRESERVE" docker "$@"
 		else
-			echo "$SUDO_PASSWORD" | sudo -S -E docker "$@"
+			echo "$SUDO_PASSWORD" | sudo -S --preserve-env="$ENV_VARS_TO_PRESERVE" docker "$@"
 		fi
 	fi
 }
@@ -217,7 +219,7 @@ function deploy() {
 	echo -e "Deploying ${LIGHT_BLUE}$PROJECT_NAME${NC} stack for" \
 		"${LIGHT_BLUE}$MODE${NC}..."
 
-	docker_sudo stack deploy -c "../${PROJECT_NAME}_stack/$MODE/stack.yml" "$PROJECT_NAME"
+	docker_sudo stack deploy -c "../${PROJECT_NAME}_stack/$MODE/stack.yml" --with-registry-auth "$PROJECT_NAME"
 }
 
 function prepare() {
