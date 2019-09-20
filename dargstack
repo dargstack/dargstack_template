@@ -3,6 +3,8 @@
 #
 # Helper script for the DargStack template.
 #
+# Requires sudo >= 1.8.21.
+#
 
 # Exit on errors, use last pipe error code, do not overwrite files, ensure
 # variables exist

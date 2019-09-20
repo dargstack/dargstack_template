@@ -6,6 +6,7 @@ A template for Docker stack project layouts.
 1. **[Stack](#stack)**
     1. **[Development](#development)**
     1. **[Production](#production)**
+1. **[Helper Script](#helper-script)**
 
 ## Project
 The main project folder should at least contain a `Dockerfile`.
@@ -83,3 +84,9 @@ export $(cat .env | xargs) && sudo -E docker stack deploy -c stack.yml [project-
 
 #### Stack
 Utilize the helper script [dargstack](https://github.com/Dargmuesli/dargstack-template/blob/master/dargstack) for deployment. It derives `[project-name]_stack/production/stack.yml` from `[project-name]_stack/development/stack.yml` and deploys the latter automatically.
+
+
+## Helper Script
+
+Requires sudo >= 1.8.21 due to usage of the extended --preserve-env list syntax.
+That means the minimum supported Debian version is `buster`.
