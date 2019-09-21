@@ -163,7 +163,7 @@ function deploy() {
 				cp "$x" "${x%.template}"
 			fi
 
-			if [[ "$x" =~ "*.env.template$" ]]
+			if [[ "$(echo "$x" | sed -n "/.env.template$/p")" != "" ]]
 			then
 				# Check if all environment variables are set
 				awk=$(awk '
