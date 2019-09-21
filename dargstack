@@ -26,9 +26,10 @@ PROJECT_OWNER="${PWD%/*}"
 PROJECT_OWNER="${PROJECT_OWNER##*/}"
 PROJECT_NAME="${DIRECTORY_NAME%"_stack"}"
 
+ADVERTISE_ADDR=""
 MODE="development"
-VERSION=""
 URL="$(git remote get-url origin || true)"
+VERSION=""
 
 if [ "$URL" == "" ]
 then
@@ -57,6 +58,7 @@ function usage {
 	echo -e "    self-update               Updates the helper script."
 	echo -e ""
 	echo -e "${LIGHT_YELLOW}options${NC}"
+	echo -e "    -a, --advertise-addr      The address Docker Swarm advertises."
 	echo -e "    -h, --help                Display this help. Usable with" \
 		"modules: all."
 	echo -e "    -p, --production <tag>    Execute in production mode." \
@@ -92,6 +94,7 @@ function deploy() {
 	VERSION="$3"
 	URL="$4"
 	MODE="$5"
+	ADVERTISE_ADDR="$6"
 
 	if [ "$MODE" = "production" ]
 	then
@@ -209,7 +212,13 @@ function deploy() {
 				"inactive" ]
 			then
 				echo -e "Creating swarm..."
-				docker_sudo swarm init
+
+				if [ "$ADVERTISE_ADDR" == "" ]
+				then
+					docker_sudo swarm init
+				else
+					docker_sudo swarm init --advertise-addr "$ADVERTISE_ADDR"
+				fi
 			fi
 		fi
 
@@ -271,8 +280,8 @@ then
 fi
 
 # Parse command line parameters
-OPTIONS=hp:u:
-LONGOPTS=help,production:,url:
+OPTIONS=a:hp:u:
+LONGOPTS=advertise_addr:,help,production:,url:
 
 ! PARSED=$(getopt --options=$OPTIONS --longoptions=$LONGOPTS \
 	--name "$0" -- "$@")
@@ -285,6 +294,10 @@ eval set -- "$PARSED"
 while true
 do
 	case "$1" in
+		-a|--advertise-addr)
+			ADVERTISE_ADDR="$2"
+			shift 2
+			;;
 		-h|--help)
 			echo -e "DargStack template helper script."
 			echo -e ""
@@ -357,7 +370,7 @@ case "$1" in
 	docker_sudo build -t "$PROJECT_OWNER/$project:dev" "../$project/"
 	;;
 "deploy")
-	deploy "$PROJECT_OWNER" "$PROJECT_NAME" "$VERSION" "$URL" "$MODE"
+	deploy "$PROJECT_OWNER" "$PROJECT_NAME" "$VERSION" "$URL" "$MODE" "$ADVERTISE_ADDR"
 	;;
 "prepare")
 	prepare
