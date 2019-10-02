@@ -83,7 +83,7 @@ export $(cat .env | xargs) && sudo -E docker stack deploy -c stack.yml [project-
 `traefik.env` sets provider credentials for DNS authentication as environment variables for the traefik service.-->
 
 #### Stack
-Utilize the helper script [dargstack](https://github.com/Dargmuesli/dargstack-template/blob/master/dargstack) for deployment. It derives `[project-name]_stack/production/stack.yml` from `[project-name]_stack/development/stack.yml` and deploys the latter automatically.
+Utilize the helper script [dargstack](https://github.com/dargmuesli/dargstack_template/blob/master/dargstack) for deployment. It derives `[project-name]_stack/production/stack.yml` from `[project-name]_stack/development/stack.yml` and deploys the latter automatically.
 
 
 ## Helper Script
