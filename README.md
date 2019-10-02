@@ -7,6 +7,7 @@ A template for Docker stack project layouts.
     1. **[Development](#development)**
     1. **[Production](#production)**
 1. **[Helper Script](#helper-script)**
+1. **[Example Projects](#example-projects)**
 
 ## Project
 The main project folder should at least contain a `Dockerfile`.
@@ -90,3 +91,10 @@ Utilize the helper script [dargstack](https://github.com/dargmuesli/dargstack_te
 
 Requires sudo >= 1.8.21 due to usage of the extended --preserve-env list syntax.
 That means the minimum supported Debian version is `buster`.
+
+
+## Example Projects
+
+- [dargmuesli/jonas-thelemann_stack](https://github.com/dargmuesli/jonas-thelemann_stack/)
+- [dargmuesli/randomwinpicker_stack](https://github.com/dargmuesli/randomwinpicker_stack/)
+- [flipdot/drinks-touch_stack](https://github.com/flipdot/drinks-touch_stack/)
