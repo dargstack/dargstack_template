@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "[project_name]"
+		},
+		{
+			"path": "[project_name]_stack"
+		}
+	],
+	"settings": {}
+}
