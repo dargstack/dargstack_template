@@ -1,13 +1,23 @@
 # DargStack Skeleton
 
+
 ## Table of Contents
+
 1. **[Main Project](#main-project)**
 1. **[Stack Project](#stack-project)**
     1. **[development/](#development)**
         1. **[certificates/](#certificates)**
-        1. **[secrets/](#secrets)**
-        1. **[stack.yml](#stack.yml)**
+        1. **[secrets/](#development-secrets)**
+        1. **[stack.yml](#development-stackyml)**
     1. **[production/](#production)**
+        1. **[backup/](#backup)**
+        1. **[configuration/](#configuration)**
+        1. **[data/](#data)**
+        1. **[secrets/](#production-secrets)**
+        1. **[production.sed](#productionsed)**
+        1. **[production.yml](#productionyml)**
+        1. **[stack.env](#stackenv)**
+        1. **[stack.yml](#production-stackyml)**
 
 ## Main Project
 
@@ -37,11 +47,15 @@ For production real certificates must be used.
 [Traefik](https://traefik.io/) can fetch those from [Let's Encrypt](https://letsencrypt.org/).
 
 
+<div id="development-secrets" />
+
 #### secrets/
 
 Confidential data, like usernames and passwords, need to be accessible as [Docker secrets](https://docs.docker.com/engine/swarm/secrets/) to keep them out of the source code.
 These files, which contain the passwords' values, need to exist inside the `[project-name]_stack/development/secrets/` directory.
 
+
+<div id="development-stackyml" />
 
 #### stack.yml
 
@@ -69,6 +83,8 @@ This directory stores configuration files for your services.
 
 This directory stores data for your serivces, like SQL dumps of database schemes, which shall be imported to your database on its first start.
 
+
+<div id="production-secrets" />
 
 #### secrets/
 
@@ -107,6 +123,9 @@ For more advanced modifications, like list manipulation, refer to [spruce's docu
 You *may* need to clone a `[project-name]_stack/production/stack.env.template` file to a sibling `stack.env` file and specify the included environment variables.
 
 `stack.env` contains environment variables for the production stack file itself.
+
+
+<div id="production-stackyml" />
 
 #### stack.yml
 
