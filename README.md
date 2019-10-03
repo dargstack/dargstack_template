@@ -1,8 +1,13 @@
 # DargStack Template
+
 A template for Docker stack project layouts.
+
+This template solves the problem of separated development and production environments in the otherwise well-defined, containerized software development process.
+It focuses on the development configuration, derives the production configuration from it and makes deployments a breeze!
 
 
 ## Table of Contents
+
 1. **[Skeleton](#skeleton)**
 1. **[Configuration](#configuration)**
 1. **[Helper Script](#helper-script)**
