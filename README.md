@@ -11,7 +11,8 @@ A template for Docker stack project layouts.
 
 ## Skeleton
 
-Read the full skeleton's specification at [./skeleton/README.md](./skeleton/README.md).
+The essential idea of this template.
+Read the full and detailed skeleton's specification at [./skeleton/README.md](./skeleton/README.md).
 
 
 ## Configuration
