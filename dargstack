@@ -48,10 +48,10 @@ function usage {
 		"from a full local development clone of the project or, with the" \
 		"${LIGHT_BLUE}--production${NC} parameter provided, by doing a" \
 		"sparse Git checkout containing only the production configuration." \
-		"In the latter case ${LIGHT_BLUE}prepare${NC} is executed first and" \
+		"In the latter case ${LIGHT_BLUE}derive${NC} is executed first and" \
 		"the existence of required environment variables is checked before" \
 		"deployment starts."
-	echo -e "    prepare                   Derives a" \
+	echo -e "    derive                    Derives a" \
 		"${LIGHT_BLUE}./production/stack.yml${NC} from" \
 		"${LIGHT_BLUE}./development/stack.yml${NC}."
 	echo -e "    rm                        Removes the stack."
@@ -222,7 +222,7 @@ function deploy() {
 			fi
 		fi
 
-		prepare
+		derive
 	else
 		export "STACK_DOMAIN=$PROJECT_NAME.test"
 	fi
@@ -233,7 +233,7 @@ function deploy() {
 	docker_sudo stack deploy -c "../${PROJECT_NAME}_stack/$MODE/stack.yml" --with-registry-auth "$PROJECT_NAME"
 }
 
-function prepare() {
+function derive() {
 	IN="$PWD/development/stack.yml"
 	OUT="$PWD/production/stack.yml"
 	seds=()
@@ -333,12 +333,12 @@ then
 	echo -e "${LIGHT_RED}No module parameter provided!${NC}"
 	usage
 	exit 1
-elif [[ "$1" != "build" && "$1" != "deploy" && "$1" != "prepare" && \
+elif [[ "$1" != "build" && "$1" != "deploy" && "$1" != "derive" && \
 	"$1" != "rm" && "$1" != "self-update" ]]
 then
 	echo -e "${LIGHT_RED}Parameter '$1' equals neither" \
 	"${LIGHT_BLUE}build${LIGHT_RED} nor ${LIGHT_BLUE}deploy${LIGHT_RED} nor" \
-	"${LIGHT_BLUE}prepare${LIGHT_RED} nor ${LIGHT_BLUE}rm${LIGHT_RED}!" \
+	"${LIGHT_BLUE}derive${LIGHT_RED} nor ${LIGHT_BLUE}rm${LIGHT_RED}!" \
 	"nor ${LIGHT_BLUE}self-update${LIGHT_RED}!${NC}"
 	exit 1
 fi
@@ -372,8 +372,8 @@ case "$1" in
 "deploy")
 	deploy "$PROJECT_OWNER" "$PROJECT_NAME" "$VERSION" "$URL" "$MODE" "$ADVERTISE_ADDR"
 	;;
-"prepare")
-	prepare
+"derive")
+	derive
 	;;
 "rm")
 	echo -e "Removing stack ${LIGHT_BLUE}$PROJECT_NAME${NC}..."

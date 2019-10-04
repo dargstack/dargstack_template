@@ -68,8 +68,8 @@ usage: dargstack <module> <options>
 
 modules
     build [sibling]           Builds the main project or the specified sibling, tagged as dev. Only for development.
-    deploy                    Deploys a Docker project either from a full local development clone of the project or, with the --production parameter provided, by doing a sparse Git checkout containing only the production configuration. In the latter case prepare is executed first and the existence of required environment variables is checked before deployment starts.
-    prepare                   Derives a ./production/stack.yml from ./development/stack.yml.
+    deploy                    Deploys a Docker project either from a full local development clone of the project or, with the --production parameter provided, by doing a sparse Git checkout containing only the production configuration. In the latter case derive is executed first and the existence of required environment variables is checked before deployment starts.
+    derive                    Derives a ./production/stack.yml from ./development/stack.yml.
     rm                        Removes the stack.
     self-update               Updates the helper script.
 
