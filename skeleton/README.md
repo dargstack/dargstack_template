@@ -16,7 +16,7 @@
         1. **[secrets/](#production-secrets)**
         1. **[production.sed](#productionsed)**
         1. **[production.yml](#productionyml)**
-        1. **[stack.env](#stackenv)**
+        1. **[stack.env.template](#stackenvtemplate)**
         1. **[stack.yml](#production-stackyml)**
 
 ## Main Project
@@ -118,7 +118,7 @@ Setting the same field with a different value here will override the development
 For more advanced modifications, like list manipulation, refer to [spruce's documentation](https://github.com/geofffranks/spruce/tree/master/doc).
 
 
-#### stack.env
+#### stack.env.template
 
 You *may* need to clone a `[project-name]_stack/production/stack.env.template` file to a sibling `stack.env` file and specify the included environment variables.
 
