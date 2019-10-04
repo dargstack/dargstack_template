@@ -9,8 +9,8 @@ It focuses on the development configuration, derives the production configuratio
 ## Table of Contents
 
 1. **[Skeleton](#skeleton)**
-1. **[Configuration](#configuration)**
 1. **[Helper Script](#helper-script)**
+1. **[Configuration](#configuration)**
 1. **[Example Projects](#example-projects)**
 
 
@@ -18,6 +18,28 @@ It focuses on the development configuration, derives the production configuratio
 
 The essential idea of this template.
 Read the full and detailed skeleton's specification at [./skeleton/README.md](./skeleton/README.md).
+
+
+## Helper Script
+
+Requires sudo >= 1.8.21 due to usage of the extended --preserve-env list syntax.
+That means the minimum supported Debian version is `buster`.
+
+```
+usage: dargstack <module> <options>
+
+modules
+    build [sibling]           Builds the main project or the specified sibling, tagged as dev. Only for development.
+    deploy                    Deploys a Docker project either from a full local development clone of the project or, with the --production parameter provided, by doing a sparse Git checkout containing only the production configuration. In the latter case derive is executed first and the existence of required environment variables is checked before deployment starts.
+    derive                    Derives a ./production/stack.yml from ./development/stack.yml.
+    rm                        Removes the stack.
+    self-update               Updates the helper script.
+
+options
+    -h, --help                Display this help. Usable with modules: all.
+    -p, --production <tag>    Execute in production mode. Version must equal a tag name or latest. Usable with modules: deploy.
+    -u, --url <url>           The URL to clone from. May include the substrings <owner> and <name> that are replaced by their corresponding value that is inferred from the DargStack directory structure. Usable with modules: deploy.
+```
 
 
 ## Configuration
@@ -55,28 +77,6 @@ address=/.test/127.0.0.1
 
 # Don't touch /etc/resolv.conf
 rc-manager=unmanaged
-```
-
-
-## Helper Script
-
-Requires sudo >= 1.8.21 due to usage of the extended --preserve-env list syntax.
-That means the minimum supported Debian version is `buster`.
-
-```
-usage: dargstack <module> <options>
-
-modules
-    build [sibling]           Builds the main project or the specified sibling, tagged as dev. Only for development.
-    deploy                    Deploys a Docker project either from a full local development clone of the project or, with the --production parameter provided, by doing a sparse Git checkout containing only the production configuration. In the latter case derive is executed first and the existence of required environment variables is checked before deployment starts.
-    derive                    Derives a ./production/stack.yml from ./development/stack.yml.
-    rm                        Removes the stack.
-    self-update               Updates the helper script.
-
-options
-    -h, --help                Display this help. Usable with modules: all.
-    -p, --production <tag>    Execute in production mode. Version must equal a tag name or latest. Usable with modules: deploy.
-    -u, --url <url>           The URL to clone from. May include the substrings <owner> and <name> that are replaced by their corresponding value that is inferred from the DargStack directory structure. Usable with modules: deploy.
 ```
 
 
