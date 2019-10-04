@@ -1,5 +1,10 @@
 # DargStack Skeleton
 
+The template' directory and file tree documentation.
+
+Note that `Stack Project/production/secrets/` *should* and `Stack Project/production/stack.yml` *must* not be part of a repository that follows the DargStack template.
+They are still mentioned though to explain their roles within the template.
+
 
 ## Table of Contents
 
