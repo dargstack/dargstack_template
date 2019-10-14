@@ -1,8 +1,9 @@
-**/secrets/**
+**/backup/*/**
 *.crt
 *.csr
 *.env
 *.key
+*.secret
+!*.README
 !*.template
-production/backup/
 production/stack.yml
