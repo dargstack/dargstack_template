@@ -1,4 +1,27 @@
+# [project_name].tld
+# https://[project_name].tld/
+# [project_name]
+# https://github.com/[project_owner]/[project_name]/
+---
+configs:
+  [project_config_name]:
+  # The main project's configuration file.
+    file: ../production/configurations/[project_name]/[project_config_name].config
+secrets:
+  [project_secret_name]:
+  # The main project's secret.
+    file: ./secrets/[project_name]/[project_secret_name].secret
 services:
   [project_name]:
+  # You can access the main project at [[project_name].test](https://[project_name].test/).
+    configs:
+    - source: [project_config_name]
+      target: /[project_name]/[project_config_name].config
     image: "[project_owner]/[project_name]"
+    secrets:
+    - [project_secret_name]
 version: "3"
+volumes:
+  [project_volume_name]:
+  # The main project's data.
+    {}
