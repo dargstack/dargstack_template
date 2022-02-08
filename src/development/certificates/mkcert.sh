@@ -1,6 +1,6 @@
 #!/bin/sh
 THIS=$(dirname $(readlink -f "$0"))
-NAME=[project_name]
+NAME=<project_name>
 
 mkcert \
 -cert-file "$THIS/$NAME.crt" \
