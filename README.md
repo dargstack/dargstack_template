@@ -38,7 +38,7 @@ This project is deployed in accordance to the [DargStack template](https://githu
 
  - ### `<project_name>`
     
-    You can access the main project at <<project_name>.test>(https://<project_name>.test/).
+    You can access the main project at [<project_name>.test](https://<project_name>.test/).
     
 
 ## volumes

@@ -13,7 +13,7 @@ secrets:
     file: ./secrets/<project_name>/<project_secret_name>.secret
 services:
   <project_name>:
-  # You can access the main project at <<project_name>.test>(https://<project_name>.test/).
+  # You can access the main project at [<project_name>.test](https://<project_name>.test/).
     configs:
     - source: <project_config_name>
       target: /<project_name>/<project_config_name>.config
