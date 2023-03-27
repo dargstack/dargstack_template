@@ -4,7 +4,6 @@
   "version": "0.0.0",
   "scheduleVersion": "0.0.0",
   "description": "DargStack configuration for <project_name>.",
-  "repository": "https://github.com/<project_owner>/<project_name>_stack.git",
   "author": "<author_name> <<author_email>>",
   "license": "<license>",
   "devDependencies": {
