@@ -3,7 +3,7 @@
 
 The Docker stack configuration for [<project_name>.tld](https://<project_name>.tld/).
 
-This project is deployed in accordance to the [DargStack template](https://github.com/dargmuesli/dargstack_template/) to make deployment a breeze. It is closely related to [<project_name>'s source code](https://github.com/<project_owner>/<project_name>/).
+This project is deployed in accordance to the [DargStack template](https://github.com/dargstack/dargstack_template/) to make deployment a breeze. It is closely related to [<project_name>'s source code](https://github.com/<project_owner>/<project_name>/).
 
 ## Table of Contents
 

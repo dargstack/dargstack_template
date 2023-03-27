@@ -4,14 +4,13 @@
   "version": "0.0.0",
   "scheduleVersion": "0.0.0",
   "description": "DargStack configuration for <project_name>.",
-  "repository": "https://github.com/<project_owner>/<project_name>_stack.git",
   "author": "<author_name> <<author_email>>",
   "license": "<license>",
-  "dependencies": {},
   "devDependencies": {
     "@commitlint/cli": "17.5.0",
     "@commitlint/config-conventional": "17.4.4",
-    "dargstack_rgen": "0.8.9",
+    "dargstack": "2.2.0",
+    "dargstack_rgen": "0.9.0",
     "husky": "8.0.3",
     "shx": "0.3.4"
   },
