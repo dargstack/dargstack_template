@@ -2,7 +2,6 @@
   "name": "project-name_stack",
   "private": true,
   "version": "0.1.0",
-  "scheduleVersion": "0.0.0",
   "description": "DargStack configuration for <project_name>.",
   "author": "<author_name> <<author_email>>",
   "license": "<license>",
