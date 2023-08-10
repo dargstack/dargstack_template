@@ -5,6 +5,10 @@
   "description": "DargStack configuration for <project_name>.",
   "author": "<author_name> <<author_email>>",
   "license": "<license>",
+  "engines": {
+    "node": "20"
+  },
+  "packageManager": "pnpm@8.6.12",
   "devDependencies": {
     "@commitlint/cli": "17.7.1",
     "@commitlint/config-conventional": "17.7.0",
