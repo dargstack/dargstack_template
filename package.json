@@ -13,7 +13,7 @@
     "@commitlint/cli": "18.4.1",
     "@commitlint/config-conventional": "18.4.0",
     "dargstack": "2.2.1",
-    "dargstack_rgen": "0.9.19",
+    "dargstack_rgen": "0.9.20",
     "husky": "8.0.3"
   },
   "scripts": {
