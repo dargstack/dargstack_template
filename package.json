@@ -10,8 +10,8 @@
   },
   "packageManager": "pnpm@8.15.2",
   "devDependencies": {
-    "@commitlint/cli": "18.6.0",
-    "@commitlint/config-conventional": "18.6.0",
+    "@commitlint/cli": "18.6.1",
+    "@commitlint/config-conventional": "18.6.1",
     "dargstack": "2.2.1",
     "dargstack_rgen": "0.9.26",
     "husky": "9.0.10"
