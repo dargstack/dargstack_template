@@ -5,9 +5,17 @@
     "@commitlint/cli": "19.1.0",
     "@commitlint/types": "19.0.3",
     "@dargmuesli/commitlint-config": "0.0.3",
+    "@semantic-release/changelog": "6.0.3",
+    "@semantic-release/commit-analyzer": "11.1.0",
+    "@semantic-release/git": "10.0.1",
+    "@semantic-release/github": "10.0.2",
+    "@semantic-release/npm": "11.0.3",
+    "@semantic-release/release-notes-generator": "12.1.0",
+    "conventional-changelog-conventionalcommits": "7.0.2",
     "dargstack": "2.2.1",
     "dargstack_rgen": "0.9.28",
-    "husky": "9.0.11"
+    "husky": "9.0.11",
+    "semantic-release": "23.0.2"
   },
   "engines": {
     "node": "20"
