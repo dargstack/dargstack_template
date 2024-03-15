@@ -1,14 +1,6 @@
 {
-  "name": "project-name_stack",
-  "private": true,
-  "version": "0.1.0",
-  "description": "DargStack configuration for <project_name>.",
   "author": "<author_name> <<author_email>>",
-  "license": "<license>",
-  "engines": {
-    "node": "20"
-  },
-  "packageManager": "pnpm@8.15.4",
+  "description": "DargStack configuration for <project_name>.",
   "devDependencies": {
     "@commitlint/cli": "19.1.0",
     "@commitlint/config-conventional": "19.1.0",
@@ -16,7 +8,16 @@
     "dargstack_rgen": "0.9.28",
     "husky": "9.0.11"
   },
+  "engines": {
+    "node": "20"
+  },
+  "license": "<license>",
+  "name": "project-name_stack",
+  "packageManager": "pnpm@8.15.4",
+  "private": true,
   "scripts": {
     "prepare": "husky"
-  }
+  },
+  "type": "module",
+  "version": "0.1.0"
 }
