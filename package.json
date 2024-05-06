@@ -11,7 +11,7 @@
     "@semantic-release/github": "10.0.3",
     "@semantic-release/npm": "12.0.0",
     "@semantic-release/release-notes-generator": "13.0.0",
-    "conventional-changelog-conventionalcommits": "7.0.2",
+    "conventional-changelog-conventionalcommits": "8.0.0",
     "dargstack": "2.2.1",
     "dargstack_rgen": "0.9.33",
     "husky": "9.0.11",
