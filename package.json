@@ -22,7 +22,7 @@
   },
   "license": "<license>",
   "name": "project-name_stack",
-  "packageManager": "pnpm@9.1.2",
+  "packageManager": "pnpm@9.1.3",
   "private": true,
   "scripts": {
     "prepare": "husky"
