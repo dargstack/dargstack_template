@@ -27,8 +27,8 @@ importers:
         specifier: 10.0.1
         version: 10.0.1(semantic-release@24.0.0(typescript@5.5.3))
       '@semantic-release/github':
-        specifier: 10.1.1
-        version: 10.1.1(semantic-release@24.0.0(typescript@5.5.3))
+        specifier: 10.1.2
+        version: 10.1.2(semantic-release@24.0.0(typescript@5.5.3))
       '@semantic-release/npm':
         specifier: 12.0.1
         version: 12.0.1(semantic-release@24.0.0(typescript@5.5.3))
@@ -45,8 +45,8 @@ importers:
         specifier: 0.9.39
         version: 0.9.39
       husky:
-        specifier: 9.1.1
-        version: 9.1.1
+        specifier: 9.1.2
+        version: 9.1.2
       semantic-release:
         specifier: 24.0.0
         version: 24.0.0(typescript@5.5.3)
@@ -242,8 +242,8 @@ packages:
     peerDependencies:
       semantic-release: '>=18.0.0'
 
-  '@semantic-release/github@10.1.1':
-    resolution: {integrity: sha512-sSmsBKGpAlTtXf9rUJf/si16p+FwPEsvsJRjl3KCwFP0WywaSpynvUhlYvE18n5rzkQNbGJnObAKIoo3xFMSjA==}
+  '@semantic-release/github@10.1.2':
+    resolution: {integrity: sha512-xckHooEOnnhOKaEsGclc29uyBUwj5Y672wPwMUspi9bB9ZXZnLGHG0PG48cj1oAEmd5KRbhfzGCZupf4wPk+/w==}
     engines: {node: '>=20.8.1'}
     peerDependencies:
       semantic-release: '>=20.1.0'
@@ -703,8 +703,8 @@ packages:
     resolution: {integrity: sha512-74kytxOUSvNbjrT9KisAbaTZ/eJwD/LrbM/kh5j0IhPuJzwuA19dWvniFGwBzN9rVjg+O/e+F310PjObDXS+9Q==}
     engines: {node: '>=18.18.0'}
 
-  husky@9.1.1:
-    resolution: {integrity: sha512-fCqlqLXcBnXa/TJXmT93/A36tJsjdJkibQ1MuIiFyCCYUlpYpIaj2mv1w+3KR6Rzu1IC3slFTje5f6DUp2A2rg==}
+  husky@9.1.2:
+    resolution: {integrity: sha512-1/aDMXZdhr1VdJJTLt6e7BipM0Jd9qkpubPiIplon1WmCeOy3nnzsCMeBqS9AsL5ioonl8F8y/F2CLOmk19/Pw==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -1759,7 +1759,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@semantic-release/github@10.1.1(semantic-release@24.0.0(typescript@5.5.3))':
+  '@semantic-release/github@10.1.2(semantic-release@24.0.0(typescript@5.5.3))':
     dependencies:
       '@octokit/core': 6.1.2
       '@octokit/plugin-paginate-rest': 11.3.3(@octokit/core@6.1.2)
@@ -2273,7 +2273,7 @@ snapshots:
 
   human-signals@7.0.0: {}
 
-  husky@9.1.1: {}
+  husky@9.1.2: {}
 
   ignore@5.3.1: {}
 
@@ -2660,7 +2660,7 @@ snapshots:
     dependencies:
       '@semantic-release/commit-analyzer': 13.0.0(semantic-release@24.0.0(typescript@5.5.3))
       '@semantic-release/error': 4.0.0
-      '@semantic-release/github': 10.1.1(semantic-release@24.0.0(typescript@5.5.3))
+      '@semantic-release/github': 10.1.2(semantic-release@24.0.0(typescript@5.5.3))
       '@semantic-release/npm': 12.0.1(semantic-release@24.0.0(typescript@5.5.3))
       '@semantic-release/release-notes-generator': 14.0.1(semantic-release@24.0.0(typescript@5.5.3))
       aggregate-error: 5.0.0
