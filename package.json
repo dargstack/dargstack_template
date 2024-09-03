@@ -13,7 +13,7 @@
     "@semantic-release/release-notes-generator": "14.0.1",
     "conventional-changelog-conventionalcommits": "8.0.0",
     "dargstack": "2.2.1",
-    "dargstack_rgen": "0.9.41",
+    "dargstack_rgen": "0.9.42",
     "husky": "9.1.5",
     "semantic-release": "24.1.0"
   },
