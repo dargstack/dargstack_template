@@ -42,8 +42,8 @@ importers:
         specifier: 2.2.2
         version: 2.2.2
       dargstack_rgen:
-        specifier: 0.9.42
-        version: 0.9.42
+        specifier: 0.9.43
+        version: 0.9.43
       husky:
         specifier: 9.1.6
         version: 9.1.6
@@ -479,8 +479,8 @@ packages:
     resolution: {integrity: sha512-cr8LFy4mpi44kRVqp5i8dN2cIFX04D0RiDmKDmRIiUKs4M62RXi3WEo5yadtSQJ0W/Xk1MCSgZkEWlvUKOmLzg==}
     engines: {node: '20'}
 
-  dargstack_rgen@0.9.42:
-    resolution: {integrity: sha512-roABzm5vGHo73jN1Y908pISlIQdIfbSXCfDdwT/DpsYblhspTmJ9l25x7l0z7sIHUeZ6dzVT+VZcHppZISApTQ==}
+  dargstack_rgen@0.9.43:
+    resolution: {integrity: sha512-czaGZtx8IR2Jn83KNV0vEL7n/epVAp5+dG98dwNaZ7yEqy0tFNpkGHtOopj3O2p4r9/TbO/ev2BpoBLMo3IfFA==}
     engines: {node: '20'}
     hasBin: true
 
@@ -501,8 +501,8 @@ packages:
     resolution: {integrity: sha512-3sUqbMEc77XqpdNO7FRyRog+eW3ph+GYCbj+rK+uYyRMuwsVy0rMiVtPn+QJlKFvWP/1PYpapqYn0Me2knFn+A==}
     engines: {node: '>=0.10.0'}
 
-  diff@5.2.0:
-    resolution: {integrity: sha512-uIFDxqpRZGZ6ThOk84hEfqWoHx2devRFvpTZcTHur85vImfaxUbTW9Ryh4CpCuDnToOP1CEtXKIgytHBPVff5A==}
+  diff@7.0.0:
+    resolution: {integrity: sha512-PJWHUb1RFevKCwaFA9RlG5tCd+FO5iRh9A8HEtkmBH2Li03iJriB6m6JIN4rGz3K3JLawI7/veA1xzRKP6ISBw==}
     engines: {node: '>=0.3.1'}
 
   dir-glob@3.0.1:
@@ -1479,8 +1479,8 @@ packages:
     resolution: {integrity: sha512-0pfFzegeDWJHJIAmTLRP2DwHjdF5s7jo9tuztdQxAhINCdvS+3nGINqPd00AphqJR/0LhANUS6/+7SCb98YOfA==}
     engines: {node: '>=10'}
 
-  yaml@2.5.0:
-    resolution: {integrity: sha512-2wWLbGbYDiSqqIKoPjar3MPgB94ErzCtrNE1FdqGuaO0pi2JGjmE8aW8TDZwzU7vuxcGRdL/4gPQwQ7hD5AMSw==}
+  yaml@2.5.1:
+    resolution: {integrity: sha512-bLQOjaX/ADgQ20isPJRvF0iRUHIxVhYvr53Of7wGcWlO2jvtUlH5m87DsmulFVxRpNLOnI4tB6p/oh8D7kpn9Q==}
     engines: {node: '>= 14'}
     hasBin: true
 
@@ -2039,12 +2039,12 @@ snapshots:
 
   dargstack@2.2.2: {}
 
-  dargstack_rgen@0.9.42:
+  dargstack_rgen@0.9.43:
     dependencies:
       deepmerge: 4.3.1
-      diff: 5.2.0
+      diff: 7.0.0
       json2md: 2.0.1
-      yaml: 2.5.0
+      yaml: 2.5.1
       yargs: 17.7.2
 
   debug@4.3.7:
@@ -2055,7 +2055,7 @@ snapshots:
 
   deepmerge@4.3.1: {}
 
-  diff@5.2.0: {}
+  diff@7.0.0: {}
 
   dir-glob@3.0.1:
     dependencies:
@@ -2890,7 +2890,7 @@ snapshots:
 
   y18n@5.0.8: {}
 
-  yaml@2.5.0: {}
+  yaml@2.5.1: {}
 
   yargs-parser@20.2.9: {}
 
