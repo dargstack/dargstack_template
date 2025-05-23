@@ -15,7 +15,7 @@
     "dargstack": "2.5.1",
     "dargstack_rgen": "0.9.62",
     "husky": "9.1.7",
-    "semantic-release": "24.2.4"
+    "semantic-release": "24.2.5"
   },
   "engines": {
     "node": "22"
