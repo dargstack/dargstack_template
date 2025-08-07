@@ -13,7 +13,7 @@
     "@semantic-release/release-notes-generator": "14.0.3",
     "conventional-changelog-conventionalcommits": "9.1.0",
     "dargstack": "2.5.1",
-    "dargstack_rgen": "0.9.67",
+    "dargstack_rgen": "0.9.68",
     "husky": "9.1.7",
     "semantic-release": "24.2.7"
   },
@@ -22,7 +22,7 @@
   },
   "license": "<license>",
   "name": "project-name_stack",
-  "packageManager": "pnpm@10.13.1",
+  "packageManager": "pnpm@10.14.0",
   "private": true,
   "scripts": {
     "prepare": "husky"
