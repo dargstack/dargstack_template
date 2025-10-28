@@ -18,7 +18,7 @@
     "semantic-release": "25.0.1"
   },
   "engines": {
-    "node": "22"
+    "node": "24"
   },
   "license": "<license>",
   "name": "project-name_stack",
