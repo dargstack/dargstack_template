@@ -15,7 +15,7 @@
   },
   "license": "<license>",
   "name": "project-name_stack",
-  "packageManager": "pnpm@10.29.3",
+  "packageManager": "pnpm@10.30.0",
   "private": true,
   "scripts": {
     "prepare": "husky"
