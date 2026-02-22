@@ -2,7 +2,7 @@
   "author": "<author_name> <<author_email>>",
   "description": "DargStack configuration for <project_name>.",
   "devDependencies": {
-    "@commitlint/cli": "20.4.1",
+    "@commitlint/cli": "20.4.2",
     "@commitlint/types": "20.4.0",
     "@dargmuesli/commitlint-config": "0.0.3",
     "conventional-changelog-conventionalcommits": "9.1.0",
