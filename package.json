@@ -7,7 +7,7 @@
     "@dargmuesli/commitlint-config": "0.0.3",
     "conventional-changelog-conventionalcommits": "9.3.1",
     "dargstack": "3.0.0",
-    "dargstack_rgen": "0.9.88",
+    "dargstack_rgen": "0.9.89",
     "husky": "9.1.7"
   },
   "engines": {
