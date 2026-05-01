@@ -24,8 +24,8 @@ importers:
         specifier: 3.0.0
         version: 3.0.0
       dargstack_rgen:
-        specifier: 0.9.89
-        version: 0.9.89
+        specifier: 0.9.90
+        version: 0.9.90
       husky:
         specifier: 9.1.7
         version: 9.1.7
@@ -231,8 +231,8 @@ packages:
     resolution: {integrity: sha512-hJn6NSEDiDvkH+3THlnLGHyvxagrm+t7f1snRSNER0u5A+manl2Wy1A7oFq6tWGtBIj0DDVoT0llpMlh8R9xQw==}
     engines: {node: '24'}
 
-  dargstack_rgen@0.9.89:
-    resolution: {integrity: sha512-XDtngZdX5Zz3xZQ9pRhyoiCg47+KwGtZh+PtQyYtqaus5ppMSyPGN9u+RYMWsTjKYKyj9+46hkSmOlJt7XuqgA==}
+  dargstack_rgen@0.9.90:
+    resolution: {integrity: sha512-KnCDFe0X4GvvGpTWpzmmVJ7aPiFvH6lgaLUFnQ7Wm8T07gSvMWVD3Uu5HEfT/mmSgfsv1pgawvwUFSqQiFwUWw==}
     engines: {node: '24'}
     hasBin: true
 
@@ -240,8 +240,8 @@ packages:
     resolution: {integrity: sha512-3sUqbMEc77XqpdNO7FRyRog+eW3ph+GYCbj+rK+uYyRMuwsVy0rMiVtPn+QJlKFvWP/1PYpapqYn0Me2knFn+A==}
     engines: {node: '>=0.10.0'}
 
-  diff@8.0.4:
-    resolution: {integrity: sha512-DPi0FmjiSU5EvQV0++GFDOJ9ASQUVFh5kD+OzOnYdi7n3Wpm9hWWGfB/O2blfHcMVTL5WkQXSnRiK9makhrcnw==}
+  diff@9.0.0:
+    resolution: {integrity: sha512-svtcdpS8CgJyqAjEQIXdb3OjhFVVYjzGAPO8WGCmRbrml64SPw/jJD4GoE98aR7r25A0XcgrK3F02yw9R/vhQw==}
     engines: {node: '>=0.3.1'}
 
   dot-prop@5.3.0:
@@ -701,17 +701,17 @@ snapshots:
 
   dargstack@3.0.0: {}
 
-  dargstack_rgen@0.9.89:
+  dargstack_rgen@0.9.90:
     dependencies:
       deepmerge: 4.3.1
-      diff: 8.0.4
+      diff: 9.0.0
       json2md: 2.0.3
       yaml: 2.8.3
       yargs: 18.0.0
 
   deepmerge@4.3.1: {}
 
-  diff@8.0.4: {}
+  diff@9.0.0: {}
 
   dot-prop@5.3.0:
     dependencies:
