@@ -2,24 +2,21 @@
   "author": "<author_name> <<author_email>>",
   "description": "DargStack configuration for <project_name>.",
   "devDependencies": {
-    "@commitlint/cli": "20.5.3",
-    "@commitlint/types": "20.5.0",
-    "@dargmuesli/commitlint-config": "0.0.3",
-    "conventional-changelog-conventionalcommits": "9.3.1",
     "dargstack": "3.0.0",
-    "dargstack_rgen": "0.9.90",
-    "husky": "9.1.7"
+    "dargstack_rgen": "0.9.90"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "11.0.8"
+    }
   },
   "engines": {
     "node": "24"
   },
   "license": "<license>",
   "name": "project-name_stack",
-  "packageManager": "pnpm@11.0.8",
   "private": true,
-  "scripts": {
-    "prepare": "husky"
-  },
   "type": "module",
   "version": "0.1.0"
 }
